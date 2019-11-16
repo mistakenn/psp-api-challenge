@@ -1,0 +1,27 @@
+{
+  "name": "psp-challenge",
+  "version": "1.0.0",
+  "description": "Desafio de API - Payment Service Provider (PSP) minimalista.",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "NODE_ENV=production node src/server.js",
+    "dev": "NODE_ENV=development nodemon src/server.js",
+    "lint": "standard",
+    "test": "jest --config ./__tests__/config/jest.config.js"
+  },
+  "repository": "https://github.com/mistakenn/psp-challenge",
+  "author": "Abner Bertelline <abner.figueiredo.bertelline@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "standard": "^14.3.1"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "jest": "^24.9.0",
+    "moment": "^2.24.0",
+    "nodemon": "^1.19.4",
+    "supertest": "^4.0.2"
+  }
+}

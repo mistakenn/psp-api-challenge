@@ -1,0 +1,11 @@
+# Dependencias
+node_modules/
+
+# Diretorio de cobertura de codigo
+coverage/
+
+# Logs do banco de dados
+src/database/logs/
+
+# Variaveis de ambiente
+.env
