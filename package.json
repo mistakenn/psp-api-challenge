@@ -12,6 +12,9 @@
   "repository": "https://github.com/mistakenn/psp-challenge",
   "author": "Abner Bertelline <abner.figueiredo.bertelline@gmail.com>",
   "license": "MIT",
+  "standard": {
+    "env": [ "jest" ]
+  },
   "devDependencies": {
     "standard": "^14.3.1"
   },
