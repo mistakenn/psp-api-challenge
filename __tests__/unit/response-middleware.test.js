@@ -4,7 +4,7 @@ const { responseHelpersMiddleware } = require('../../src/middlewares/response')
 const genFakeResponse = () => {
   let _status = null
   return {
-    status: function (code) {
+    status (code) {
       _status = code
       return this
     },

@@ -2,7 +2,7 @@
  * @description Cria as rotas no formato do 'config.js' no router
  * @param {Express.Router} router
  * @param {Object} routes
- * @param {String?} relativePath
+ * @param {String} relativePath
  */
 const createRoutes = (router, routes, relativePath = '') => {
   const routesArray = Array.isArray(routes) ? routes : [routes]

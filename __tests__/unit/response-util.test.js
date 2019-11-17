@@ -8,7 +8,7 @@ describe('Response utils', () => {
       error: true,
       message: 'Error'
     })
-  }),
+  })
   it('Checks createDefaultResponse with data', () => {
     const response = createDefaultResponse(false, 'Success', { id: 1 })
     expect(response).toEqual({
