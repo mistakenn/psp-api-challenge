@@ -1,4 +1,4 @@
-const { createDefaultResponse } = require('../../src/utils/response')
+const { createDefaultResponse } = require('../../src/utils/request')
 const request = require('supertest')
 const app = require('../../src/app')
 

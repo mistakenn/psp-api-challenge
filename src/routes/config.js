@@ -24,6 +24,11 @@ module.exports = (controllers) => ({
       path: '/health',
       method: 'get',
       controller: simpleResponseController('Ok')
+    },
+    {
+      path: '/test',
+      method: 'get',
+      controller: controllers.transaction.testController
     }
   ]
 })

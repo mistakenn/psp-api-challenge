@@ -1,4 +1,4 @@
-const { createDefaultResponse } = require('../../src/utils/response')
+const { createDefaultResponse } = require('../../src/utils/request')
 
 describe('Response utils', () => {
   it('Checks createDefaultResponse without data', () => {

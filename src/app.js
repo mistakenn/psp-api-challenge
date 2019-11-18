@@ -1,6 +1,6 @@
+const { responseHelpersMiddleware } = require('./middlewares/request')
 const { config } = require('dotenv')
 const { createDbInstance, DbRep } = require('./database')
-const { responseHelpersMiddleware } = require('./middlewares/response')
 const Router = require('./routes')
 const cors = require('cors')
 const express = require('express')
