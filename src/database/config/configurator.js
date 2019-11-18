@@ -1,27 +1,16 @@
 const { join } = require('path')
+const connectionConfig = require('./connection.config')
 const logger = require('./logger')
 
 /**
  * @description Cria uma configuracao padrao do banco
- * @param {{
- *   host: String,
- *   database: String,
- *   user: String,
- *   password: String
- * }} connection
+ * @param {String} env
+ * @returns {Object}
  */
-const createConfig = ({
-  host = process.env.DB_HOST || '127.0.0.1',
-  database = process.env.DB_NAME,
-  user = process.env.DB_USER,
-  password = process.env.DB_PASSWORD
-} = {}) => ({
+const createConfig = (env) => ({
   client: 'postgresql',
   connection: {
-    host,
-    database,
-    user,
-    password,
+    ...connectionConfig[env === 'test' ? 'test' : 'default'],
     timezone: 'UTC'
   },
   pool: {
@@ -34,7 +23,7 @@ const createConfig = ({
     directory: join(__dirname, '/../migrations'),
     tableName: 'migrations'
   },
-  log: logger
+  log: logger(env)
 })
 
 module.exports = { createConfig }
