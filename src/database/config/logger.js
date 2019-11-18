@@ -2,8 +2,9 @@ const fs = require('fs')
 const { join } = require('path')
 const moment = require('moment')
 
+const NODE_ENV = process.env.NODE_ENV || 'development'
 const LOGS_DIR = join(__dirname, '/../logs')
-const LOG_FILE = `knex.${process.env.NODE_ENV}.log`
+const LOG_FILE = `knex.${NODE_ENV}.log`
 
 /**
  * @description Insere uma mensagem no log
@@ -20,7 +21,7 @@ const logMessage = (type, message) => {
       join(LOGS_DIR, LOG_FILE),
       compositeMessage
     )
-    if (process.env.NODE_ENV === 'development') {
+    if (NODE_ENV === 'development') {
       console.log(compositeMessage)
     }
   } catch (err) {
