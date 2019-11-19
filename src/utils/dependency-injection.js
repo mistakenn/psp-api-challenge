@@ -1,18 +1,22 @@
 const { join } = require('path')
 const { lstatSync, readdirSync } = require('fs')
 
-const genInjectableDirModules = (root, dependencies) => {
-  /**
-   * @description Importa todos os modulos de um caminho, injeta as dependencias
-   *   e retorna um objeto contendo-os
-   * @param {String} path
-   * @returns {Object}
-   */
-  const generator = (path) => {
+const genInjectableDirModules = (
+  rootPath,
+  dependencies,
+  rootName = 'rootModule'
+) => {
+  const root = {}
+  const injectableDependencies = {
+    ...dependencies,
+    [rootName]: root
+  }
+
+  const generator = (path, dirObj = {}) => {
     if (!lstatSync(path).isDirectory()) {
       const module = require(path)
       return typeof module === 'function'
-        ? module(dependencies)
+        ? module(injectableDependencies)
         : module
     }
     return readdirSync(path).reduce((prev, curr) => {
@@ -22,10 +26,10 @@ const genInjectableDirModules = (root, dependencies) => {
       const fullPath = join(path, curr)
       prev[curr.replace('.js', '')] = generator(fullPath)
       return prev
-    }, {})
+    }, dirObj)
   }
 
-  return generator(root)
+  return generator(rootPath, root)
 }
 
 module.exports = { genInjectableDirModules }

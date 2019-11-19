@@ -1,5 +1,6 @@
 const { validate } = require('../utils/validation')
 const Joi = require('joi')
+const moment = require('moment')
 
 const transactionSchema = Joi.object({
   card: Joi.object({
@@ -13,7 +14,7 @@ const transactionSchema = Joi.object({
   value: Joi.number().min(0.01).max(1e9).precision(2).required()
 })
 
-module.exports = ({ dbRep }) => {
+module.exports = ({ controllers, dbRep }) => {
   /**
    * @description Rota de processamento de transacao
    */
@@ -38,17 +39,28 @@ module.exports = ({ dbRep }) => {
     if (validationError) {
       return res.sendError({ error: validationError, status: 400, trusted: true })
     }
-    const [dbError, transactionId] = await dbRep.transaction.create({
+    if (moment().isAfter(transaction.card.expiration)) {
+      const expiredCardError = new Error('Expired card')
+      return res.sendError({ error: expiredCardError, status: 400, trusted: true })
+    }
+    const [transactionDbError, dbTransaction] = await dbRep.transaction.create({
       cardLastDigits: transaction.card.number.slice(-4),
       description: transaction.description,
       paymentMethod: transaction.paymentMethod,
       value: transaction.value
     })
-    if (dbError) {
-      return res.sendError({ error: dbError, replacer: defaultError })
+    if (transactionDbError) {
+      return res.sendError({ error: transactionDbError, replacer: defaultError })
+    }
+    const [payableError] = await controllers.payable.createPayable({
+      ...transaction,
+      ...dbTransaction
+    })
+    if (payableError) {
+      return res.sendError({ error: payableError, replacer: defaultError })
     }
     return res.sendResponse({
-      data: { id: transactionId },
+      data: { id: dbTransaction.id },
       message: 'Transaction processed'
     })
   }
