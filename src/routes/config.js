@@ -39,6 +39,11 @@ module.exports = (controllers) => ({
           controller: controllers.transaction.processTransactionController
         }
       ]
+    },
+    {
+      path: '/balance',
+      method: 'get',
+      controller: controllers.payable.balanceController
     }
   ]
 })

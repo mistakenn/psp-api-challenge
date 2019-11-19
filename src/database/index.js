@@ -1,3 +1,7 @@
+// Set decimal parser to numeric type
+const pg = require('pg')
+pg.types.setTypeParser(pg.types.builtins.NUMERIC, parseFloat)
+
 const { createConfig } = require('./config/configurator')
 const moment = require('moment')
 const types = require('pg').types

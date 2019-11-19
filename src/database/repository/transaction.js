@@ -28,8 +28,8 @@ module.exports = ({ db }) => {
 
   /**
    * @description Busca todas as transacoes no banco
-    * @returns {Promise}
-    */
+   * @returns {Promise}
+   */
   const getAll = () => safeAwait(db('transaction').select())
 
   return {
