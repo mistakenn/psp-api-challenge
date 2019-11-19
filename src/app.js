@@ -5,7 +5,7 @@ const Router = require('./routes')
 const cors = require('cors')
 const express = require('express')
 
-config({ path: '../.env' })
+config({ path: `${__dirname}/../.env` })
 
 const createMiddlewares = () => [
   cors(),

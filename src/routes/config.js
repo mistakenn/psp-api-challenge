@@ -26,9 +26,14 @@ module.exports = (controllers) => ({
       controller: simpleResponseController('Ok')
     },
     {
-      path: '/test',
-      method: 'get',
-      controller: controllers.transaction.testController
+      path: '/transaction',
+      subroutes: [
+        {
+          path: '/',
+          method: 'post',
+          controller: controllers.transaction.processTransactionController
+        }
+      ]
     }
   ]
 })

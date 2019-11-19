@@ -1,3 +1,4 @@
+const { camelToSnake, keyMapper, snakeToCamel } = require('../../utils/knex')
 const { join } = require('path')
 const connectionConfig = require('./connection.config')
 const logger = require('./logger')
@@ -23,7 +24,11 @@ const createConfig = (env) => ({
     directory: join(__dirname, '/../migrations'),
     tableName: 'migrations'
   },
-  log: logger(env)
+  log: logger(env),
+  wrapIdentifier: (value, origImpl) => origImpl(camelToSnake(value)),
+  postProcessResponse: (data) => Array.isArray(data)
+    ? data.map((row) => keyMapper(snakeToCamel, row))
+    : keyMapper(snakeToCamel, data)
 })
 
 module.exports = { createConfig }

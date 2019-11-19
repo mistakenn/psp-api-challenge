@@ -32,7 +32,7 @@ const responseHelpersMiddleware = (req, res, next) => {
   }) {
     const isDevelopment = process.env.NODE_ENV === 'development'
     let message = isDevelopment || trusted ? error.message : replacer
-    if (isDevelopment || forceStack) {
+    if ((isDevelopment && !trusted) || forceStack) {
       message += ` (${error.stack.replace(/\s+/g, ' ')})`
     }
     return this.sendErrorMessage(message, status)

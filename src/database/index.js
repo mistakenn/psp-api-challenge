@@ -11,7 +11,7 @@ types.setTypeParser(TIMESTAMP_OID, (val) => val ? moment.utc(val).toISOString() 
  * @description Cria uma instancia do banco de dados
  * @returns {Knex}
  */
-const createDbInstance = () => Knex(createConfig())
+const createDbInstance = () => Knex(createConfig(process.env.NODE_ENV))
 
 module.exports = {
   DbRep,
