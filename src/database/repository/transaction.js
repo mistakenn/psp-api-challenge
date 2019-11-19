@@ -26,5 +26,14 @@ module.exports = ({ db }) => {
     }).then((rows) => rows[0])
   )
 
-  return { create }
+  /**
+   * @description Busca todas as transacoes no banco
+    * @returns {Promise}
+    */
+  const getAll = () => safeAwait(db('transaction').select())
+
+  return {
+    create,
+    getAll
+  }
 }

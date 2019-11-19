@@ -14,6 +14,24 @@ const transactionSchema = Joi.object({
 })
 
 module.exports = ({ dbRep }) => {
+  /**
+   * @description Rota de processamento de transacao
+   */
+  const getTransactionsController = async (req, res) => {
+    const defaultError = 'Failed to get transactions'
+    const [dbError, transactions] = await dbRep.transaction.getAll()
+    if (dbError) {
+      return res.sendError({ error: dbError, replacer: defaultError })
+    }
+    return res.sendResponse({
+      data: transactions,
+      message: 'Transactions list'
+    })
+  }
+
+  /**
+   * @description Rota de processamento de transacao
+   */
   const processTransactionController = async (req, res) => {
     const defaultError = 'Failed to process transaction'
     const [validationError, transaction] = validate(transactionSchema, req.body)
@@ -34,7 +52,9 @@ module.exports = ({ dbRep }) => {
       message: 'Transaction processed'
     })
   }
+
   return {
+    getTransactionsController,
     processTransactionController
   }
 }

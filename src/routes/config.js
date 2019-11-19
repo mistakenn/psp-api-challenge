@@ -30,6 +30,11 @@ module.exports = (controllers) => ({
       subroutes: [
         {
           path: '/',
+          method: 'get',
+          controller: controllers.transaction.getTransactionsController
+        },
+        {
+          path: '/',
           method: 'post',
           controller: controllers.transaction.processTransactionController
         }
