@@ -4,7 +4,8 @@ module.exports = {
   collectCoverageFrom: [
     'src/**/*.js',
     '!src/server.js',
-    '!src/database/(migrations|seeds)/*'
+    '!src/database/(helpers|migrations|seeds)/*',
+    '!src/database/config/knexfile.js'
   ],
   moduleFileExtensions: ['js', 'json'],
   rootDir: '../../',
@@ -12,7 +13,8 @@ module.exports = {
   testPathIgnorePatterns: [
     '<rootDir>/node_modules/',
     '<rootDir>/src/server.js',
-    '<rootDir>/src/database/(migrations|seeds)'
+    '<rootDir>/src/database/config/knexfile.js',
+    '<rootDir>/src/database/(helpers|migrations|seeds)'
   ],
   testRegex: '.test.js$'
 }

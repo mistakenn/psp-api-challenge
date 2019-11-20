@@ -1,7 +1,7 @@
 const { camelToSnake, keyMapper, snakeToCamel } = require('../../utils/knex')
 const { join } = require('path')
 const connectionConfig = require('./connection.config')
-const logger = require('./logger')
+const logger = require('../helpers/logger')
 
 /**
  * @description Cria uma configuracao padrao do banco
