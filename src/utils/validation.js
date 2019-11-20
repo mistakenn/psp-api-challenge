@@ -18,10 +18,11 @@ const JOI_OPTIONS = {
  * @returns {[ Error?, Any? ]}
  */
 const validate = (schema, data) => {
-  const { error, value: validationData } = schema.validate(data, JOI_OPTIONS)
+  const { error, value: joiData } = schema.validate(data, JOI_OPTIONS)
   const validationError = error !== null
     ? new Error(((error.details || [])[0] || {}).message || 'Validation error')
     : null
+  const validationData = !error ? joiData : null
   return [validationError, validationData]
 }
 

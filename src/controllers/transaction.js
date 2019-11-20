@@ -2,19 +2,19 @@ const { validate } = require('../utils/validation')
 const Joi = require('joi')
 const moment = require('moment')
 
-const transactionSchema = Joi.object({
-  card: Joi.object({
-    cvv: Joi.string().min(3).max(4).regex(/^[0-9]*$/).required(),
-    expiration: Joi.date().required(),
-    owner: Joi.string().max(80).required(),
-    number: Joi.string().creditCard().required()
-  }).required(),
-  description: Joi.string().max(100).required(),
-  paymentMethod: Joi.string().valid('debit_card', 'credit_card').required(),
-  value: Joi.number().min(0.01).max(1e9).precision(2).required()
-})
-
 module.exports = ({ controllers, dbRep }) => {
+  const transactionSchema = Joi.object({
+    card: Joi.object({
+      cvv: Joi.string().min(3).max(4).regex(/^[0-9]*$/).required(),
+      expiration: Joi.date().required(),
+      owner: Joi.string().max(80).required(),
+      number: Joi.string().creditCard().required()
+    }).required(),
+    description: Joi.string().max(100).required(),
+    paymentMethod: Joi.string().valid('debit_card', 'credit_card').required(),
+    value: Joi.number().min(0.01).max(1e9).precision(2).required()
+  })
+
   /**
    * @description Rota de processamento de transacao
    */

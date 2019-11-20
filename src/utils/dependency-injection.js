@@ -1,6 +1,14 @@
 const { join } = require('path')
 const { lstatSync, readdirSync } = require('fs')
 
+/**
+ * @description Importa e injeta dependencias em todos os modulos de um
+ *   diretorio, gerando um objeto
+ * @param {String} rootPath
+ * @param {Object} dependencies
+ * @param {String} rootName
+ * @returns {Object}
+ */
 const genInjectableDirModules = (
   rootPath,
   dependencies,

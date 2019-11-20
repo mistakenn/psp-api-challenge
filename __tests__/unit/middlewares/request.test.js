@@ -1,5 +1,5 @@
-const { createDefaultResponse } = require('../../src/utils/request')
-const { responseHelpersMiddleware } = require('../../src/middlewares/request')
+const { createDefaultResponse } = require('../../../src/utils/request')
+const { responseHelpersMiddleware } = require('../../../src/middlewares/request')
 
 const genFakeResponse = () => {
   let _status = null

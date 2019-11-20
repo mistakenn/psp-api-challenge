@@ -1,4 +1,4 @@
-const generator = require('../../src/routes/generator')
+const generator = require('../../../src/routes/generator')
 
 const registerMethod = (method) => function (path, controller) {
   this.routes.push({ controller, method, path })

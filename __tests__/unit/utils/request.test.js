@@ -1,6 +1,6 @@
-const { createDefaultResponse } = require('../../src/utils/request')
+const { createDefaultResponse } = require('../../../src/utils/request')
 
-describe('Response utils', () => {
+describe('Request utils', () => {
   it('Checks createDefaultResponse without data', () => {
     const response = createDefaultResponse(true, 'Error')
     expect(response).toEqual({
