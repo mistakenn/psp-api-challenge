@@ -1,11 +1,11 @@
 /**
- * @description Converte simplificadamente de camel case para snake case
+ * @description Converte chaves do Knex de camel case para snake case
  * @param {String} str
  * @returns {String}
  */
 const camelToSnake = (str) => str.replace(
-  /[\w]([A-Z])/g,
-  (match) => `${match[0]}_${match[1]}`
+  /(?<!^)(?<!_)([A-Z])/g,
+  (match) => `_${match}`
 ).toLowerCase()
 
 /**
@@ -22,12 +22,12 @@ const keyMapper = (mapper, obj) => typeof obj !== 'object' || Array.isArray(obj)
   }, {})
 
 /**
- * @description Converte simplificadamente de snake case para camel case
+ * @description Converte chaves do Knex de snake case para camel case
  * @param {String} str
  * @returns {String}
  */
 const snakeToCamel = (str) => str.replace(
-  /(_\w)/g,
+  /(?<!^)(_\w)/g,
   (match) => match[1].toUpperCase()
 )
 
