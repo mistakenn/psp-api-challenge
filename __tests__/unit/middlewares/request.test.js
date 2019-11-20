@@ -19,7 +19,7 @@ describe('Response helpers middleware', () => {
   const fakeResponse = genFakeResponse()
   responseHelpersMiddleware(null, fakeResponse, () => {})
 
-  it('Checks helpers insertion', () => {
+  it('helpers insertion', () => {
     expect(fakeResponse).toHaveProperty('sendError')
     expect(fakeResponse).toHaveProperty('sendErrorMessage')
     expect(fakeResponse).toHaveProperty('sendResponse')
@@ -27,7 +27,7 @@ describe('Response helpers middleware', () => {
     expect(typeof fakeResponse.sendErrorMessage).toEqual('function')
     expect(typeof fakeResponse.sendResponse).toMatch('function')
   })
-  it('Checks sendError with trusted error', () => {
+  it('sendError with trusted error', () => {
     const json = fakeResponse.sendError({
       error: new Error('Test error'),
       trusted: true
@@ -37,7 +37,7 @@ describe('Response helpers middleware', () => {
       status: 500
     })
   })
-  it('Checks sendError with untrusted error', () => {
+  it('sendError with untrusted error', () => {
     const json = fakeResponse.sendError({
       error: new Error('Test error'),
       trusted: false
@@ -47,7 +47,7 @@ describe('Response helpers middleware', () => {
       status: 500
     })
   })
-  it('Checks sendError all parameters', () => {
+  it('sendError all parameters', () => {
     const json = fakeResponse.sendError({
       error: new Error('Test error'),
       forceStack: true,
@@ -62,28 +62,28 @@ describe('Response helpers middleware', () => {
     expect(json.data).toHaveProperty('message')
     expect(json.data.message).toMatch('None (Error:')
   })
-  it('Checks sendErrorMessage without args', () => {
+  it('sendErrorMessage without args', () => {
     const json = fakeResponse.sendErrorMessage()
     expect(json).toEqual({
       data: createDefaultResponse(true, 'Internal Server Error'),
       status: 500
     })
   })
-  it('Checks sendErrorMessage with args', () => {
+  it('sendErrorMessage with args', () => {
     const json = fakeResponse.sendErrorMessage('Fake error', 403)
     expect(json).toEqual({
       data: createDefaultResponse(true, 'Fake error'),
       status: 403
     })
   })
-  it('Checks sendResponse without args', () => {
+  it('sendResponse without args', () => {
     const json = fakeResponse.sendResponse()
     expect(json).toEqual({
       data: createDefaultResponse(false, 'Done'),
       status: 200
     })
   })
-  it('Checks sendResponse with args', () => {
+  it('sendResponse with args', () => {
     const json = fakeResponse.sendResponse({
       data: { id: 5 },
       message: 'Created'

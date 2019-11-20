@@ -18,7 +18,7 @@ module.exports = ({ db }) => {
     paymentMethod,
     value
   }) => safeAwait(
-    db('transaction').returning(['id', 'createdAt']).insert({
+    db('transaction').returning('*').insert({
       cardLastDigits,
       description,
       paymentMethod,

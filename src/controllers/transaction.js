@@ -52,10 +52,7 @@ module.exports = ({ controllers, dbRep }) => {
     if (transactionDbError) {
       return res.sendError({ error: transactionDbError, replacer: defaultError })
     }
-    const [payableError] = await controllers.payable.createPayable({
-      ...transaction,
-      ...dbTransaction
-    })
+    const [payableError] = await controllers.payable.createPayable(dbTransaction)
     if (payableError) {
       return res.sendError({ error: payableError, replacer: defaultError })
     }

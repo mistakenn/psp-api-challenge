@@ -50,10 +50,7 @@ module.exports = ({ dbRep }) => {
     if (dbError) {
       throw dbError
     }
-    return {
-      ...payable,
-      ...dbPayable
-    }
+    return dbPayable
   })
 
   return {

@@ -18,7 +18,7 @@ module.exports = ({ db }) => {
     transactionId,
     value
   }) => safeAwait(
-    db('payable').returning(['id', 'createdAt']).insert({
+    db('payable').returning('*').insert({
       paymentDate,
       status,
       transactionId,
