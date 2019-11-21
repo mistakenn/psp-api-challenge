@@ -64,15 +64,27 @@ describe('Database repository', () => {
       expect(data).toBeNull()
     })
 
-    it('getAll returning all transactions', async () => {
-      const [error, allTransactions] = await dbRep.transaction.getAll()
+    it('getPage without total listing all transactions', async () => {
+      const [error, page] = await dbRep.transaction.getPage(1, 2)
       expect(error).toBeNull()
-      expect(allTransactions).toHaveLength(2)
-      allTransactions.forEach((transaction) => checkTransactionData(
+      expect(page).toHaveProperty('currentPage', 1)
+      expect(page).toHaveProperty('pageSize', 2)
+      expect(page).toHaveProperty('items')
+      expect(page.items).toHaveLength(2)
+      page.items.forEach((transaction) => checkTransactionData(
         transaction,
         transaction.id,
         transactions[transaction.id - 1]
       ))
+    })
+    it('getPage with total retrieving second transaction', async () => {
+      const [error, page] = await dbRep.transaction.getPage(2, 1)
+      expect(error).toBeNull()
+      expect(page).toHaveProperty('currentPage', 2)
+      expect(page).toHaveProperty('pageSize', 1)
+      expect(page).toHaveProperty('items')
+      expect(page.items).toHaveLength(1)
+      checkTransactionData(page.items[0], 2, transactions[1])
     })
   })
 

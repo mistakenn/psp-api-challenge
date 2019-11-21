@@ -28,12 +28,17 @@ module.exports = ({ db }) => {
 
   /**
    * @description Busca todas as transacoes no banco
+   * @param {Number} page
+   * @param {Number} pageSize
+   * @param {Boolean} includeTotal
    * @returns {Promise}
    */
-  const getAll = () => safeAwait(db('transaction').select())
+  const getPage = (page, pageSize, includeTotal = false) => safeAwait(
+    db('transaction').paginate(page, pageSize, includeTotal)
+  )
 
   return {
     create,
-    getAll
+    getPage
   }
 }

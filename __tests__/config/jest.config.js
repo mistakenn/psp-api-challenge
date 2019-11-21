@@ -5,12 +5,13 @@ module.exports = {
     'src/**/*.js',
     '!src/server.js',
     '!src/database/(helpers|migrations|seeds)/*',
-    '!src/database/config/knexfile.js'
+    '!src/database/config/(connection.config|knexfile).js'
   ],
   moduleFileExtensions: ['js', 'json'],
   rootDir: '../../',
   testEnvironment: 'node',
   testPathIgnorePatterns: [
+    '.config.js',
     '<rootDir>/node_modules/',
     '<rootDir>/src/server.js',
     '<rootDir>/src/database/config/knexfile.js',

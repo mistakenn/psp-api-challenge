@@ -3,6 +3,14 @@ const Joi = require('joi')
 const moment = require('moment')
 
 module.exports = ({ controllers, dbRep }) => {
+  const pageSchema = Joi.object({
+    includeTotal: Joi.boolean().default(false),
+    page: Joi.number().integer().min(1).default(1),
+    pageSize: Joi.number().integer().min(1).default(
+      parseInt(process.env.PAGE_SIZE) || 30
+    )
+  })
+
   const transactionSchema = Joi.object({
     card: Joi.object({
       cvv: Joi.string().min(3).max(4).regex(/^[0-9]*$/).required(),
@@ -16,11 +24,19 @@ module.exports = ({ controllers, dbRep }) => {
   })
 
   /**
-   * @description Rota de processamento de transacao
+   * @description Rota de busca de transacoes realizadas
    */
   const getTransactionsController = async (req, res) => {
     const defaultError = 'Failed to get transactions'
-    const [dbError, transactions] = await dbRep.transaction.getAll()
+    const [validationError, pageParams] = validate(pageSchema, req.query)
+    if (validationError) {
+      return res.sendError({ error: validationError, status: 400, trusted: true })
+    }
+    const [dbError, transactions] = await dbRep.transaction.getPage(
+      pageParams.page,
+      pageParams.pageSize,
+      pageParams.includeTotal
+    )
     if (dbError) {
       return res.sendError({ error: dbError, replacer: defaultError })
     }
