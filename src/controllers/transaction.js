@@ -14,7 +14,7 @@ module.exports = ({ controllers, dbRep }) => {
   const transactionSchema = Joi.object({
     card: Joi.object({
       cvv: Joi.string().min(3).max(4).regex(/^[0-9]*$/).required(),
-      expiration: Joi.date().required(),
+      expiration: Joi.string().regex(/^[0-9]{2}\/[0-9]{4}$/).required(),
       owner: Joi.string().max(80).required(),
       number: Joi.string().creditCard().required()
     }).required(),
@@ -55,7 +55,18 @@ module.exports = ({ controllers, dbRep }) => {
     if (validationError) {
       return res.sendError({ error: validationError, status: 400, trusted: true })
     }
-    if (moment().isAfter(transaction.card.expiration)) {
+    const cardExpiration = moment(
+      transaction.card.expiration.split('/').reverse().join('-')
+    )
+    if (!cardExpiration.isValid()) {
+      const invalidExpirationError = new Error('Invalid expiration date')
+      return res.sendError({
+        error: invalidExpirationError,
+        status: 400,
+        trusted: true
+      })
+    }
+    if (moment().isAfter(cardExpiration)) {
       const expiredCardError = new Error('Expired card')
       return res.sendError({ error: expiredCardError, status: 400, trusted: true })
     }

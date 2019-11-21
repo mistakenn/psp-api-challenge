@@ -24,6 +24,7 @@ const createApp = () => {
   const router = createRouter(dbRepository)
   app.use(createMiddlewares())
   app.use(router)
+  app.getDbInstance = () => db
   return app
 }
 

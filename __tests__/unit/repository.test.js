@@ -1,6 +1,21 @@
 const { createDbInstance, DbRep } = require('../../src/database')
 const moment = require('moment')
 
+const transactions = [
+  {
+    cardLastDigits: '0123',
+    description: 'Test Product I',
+    paymentMethod: 'debit_card',
+    value: 100
+  },
+  {
+    cardLastDigits: '4567',
+    description: 'Test Product II',
+    paymentMethod: 'credit_card',
+    value: 1000
+  }
+]
+
 const checkPayableData = (data, expectedId, payable) => {
   const { paymentDate, status, transactionId, value } = payable
   expect(data).toHaveProperty('id', expectedId)
@@ -29,21 +44,6 @@ describe('Database repository', () => {
   afterAll(() => db.migrate.rollback())
 
   describe('Transaction repository', () => {
-    const transactions = [
-      {
-        cardLastDigits: '0123',
-        description: 'Test Product I',
-        paymentMethod: 'debit_card',
-        value: 100
-      },
-      {
-        cardLastDigits: '4567',
-        description: 'Test Product II',
-        paymentMethod: 'credit_card',
-        value: 1000
-      }
-    ]
-
     it('create with debit_card method', async () => {
       const [error, data] = await dbRep.transaction.create(transactions[0])
       expect(error).toBeNull()
