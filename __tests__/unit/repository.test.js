@@ -39,9 +39,10 @@ const checkTransactionData = (data, expectedId, transaction) => {
 describe('Database repository', () => {
   const db = createDbInstance()
   const dbRep = DbRep({ db })
-
-  beforeAll(() => db.migrate.rollback().then(() => db.migrate.latest()))
-  afterAll(() => db.migrate.rollback())
+  beforeAll(async () => {
+    await db.migrate.rollback()
+    await db.migrate.latest()
+  })
 
   describe('Transaction repository', () => {
     it('create with debit_card method', async () => {
