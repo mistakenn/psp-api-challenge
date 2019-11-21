@@ -79,9 +79,14 @@ const getTransactionRetrievalTest = (params = {}) => async () => {
 
 describe('Business rules routes', () => {
   const db = app.getDbInstance()
-  beforeAll(async () => {
+  beforeAll(async (done) => {
     await db.migrate.rollback()
     await db.migrate.latest()
+    done()
+  })
+  afterAll(async (done) => {
+    await db.destroy()
+    done()
   })
 
   describe('Transaction routes', () => {

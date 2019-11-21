@@ -39,9 +39,14 @@ const checkTransactionData = (data, expectedId, transaction) => {
 describe('Database repository', () => {
   const db = createDbInstance()
   const dbRep = DbRep({ db })
-  beforeAll(async () => {
+  beforeAll(async (done) => {
     await db.migrate.rollback()
     await db.migrate.latest()
+    done()
+  })
+  afterAll(async (done) => {
+    await db.destroy()
+    done()
   })
 
   describe('Transaction repository', () => {
