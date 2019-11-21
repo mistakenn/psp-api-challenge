@@ -44,13 +44,11 @@ Crie um arquivo _.env_ na raiz do projeto para manter as variáveis de ambiente,
 
 ```
 $ yarn knex migrate:latest
-$ yarn knex migrate:latest --env=test
 ```
 ```
 $ npm run knex migrate:latest
-$ npm run knex migrate:latest --env=test
 ```
-> Nota: Você pode rodar yarn ```yarn knex migrate:rollback``` ou ```npm run knex migrate:rollback``` para dar rollback nas migrations.
+> Nota: Você pode rodar ```yarn knex migrate:rollback``` ou ```npm run knex migrate:rollback``` para dar rollback nas migrations.
 
 ### Executando o ambiente de desenvolvimento
 
