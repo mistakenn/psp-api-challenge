@@ -36,19 +36,21 @@ $ yarn
 $ npm install
 ```
 
+**Configurando o .env**
+
+Crie um arquivo _.env_ na raiz do projeto para manter as variáveis de ambiente, seguindo o padrão apresentado no arquivo _.env.example_. Não esqueça de colocar seu usuário e senha do PostgreSQL para que a aplicação consiga se conectar. :)
+
 **Rodando as migrations**
 
 ```
 $ yarn knex migrate:latest
+$ yarn knex migrate:latest --env=test
 ```
 ```
 $ npm run knex migrate:latest
+$ npm run knex migrate:latest --env=test
 ```
 > Nota: Você pode rodar yarn ```yarn knex migrate:rollback``` ou ```npm run knex migrate:rollback``` para dar rollback nas migrations.
-
-**Configurando o .env**
-
-Crie um arquivo _.env_ na raiz do projeto para manter as variáveis de ambiente, seguindo o padrão apresentado no arquivo _.env.example_. Não esqueça de colocar seu usuário e senha do PostgreSQL para que a aplicação consiga se conectar. :)
 
 ### Executando o ambiente de desenvolvimento
 
